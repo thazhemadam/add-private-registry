@@ -29,6 +29,7 @@ end
 
 function main_create_auth_toml()
     @info "Running on Julia $(VERSION)..."
+    @show keys(ENV)
     juliahub_token_toml = get_juliahub_token_toml()
     @info "Is the token getting parsed properly?" juliahub_token_toml !== ""
     pkg_server = Pkg.pkg_server()
