@@ -6,7 +6,7 @@ include(joinpath(@__DIR__, "check_pkg_server.jl"))
 
 function get_juliahub_token_toml()
     juliahub_token_encoded = ENV["JULIAHUB_TOKEN_ENCODED"] |> strip |> String
-    @info "Is the encoded token being picked up properly?" juliahub_token_encoded !== ""
+    @info "Is the encoded token being picked up properly?" juliahub_token_encoded # never do this! I'm only doing this to test things with a dummy value. But never expose secrets!
     juliahub_token_toml = String(Base64.base64decode(juliahub_token_encoded))
     @info "Is the encoded token being decoded properly?" juliahub_token_toml !== ""
     return juliahub_token_toml
