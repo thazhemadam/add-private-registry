@@ -27,14 +27,19 @@ end
 
 function main_create_auth_toml()
     juliahub_token_toml = get_juliahub_token_toml()
+    @info "Is the token getting parsed properly?" juliahub_token_toml !== ""
     pkg_server = Pkg.pkg_server()
     server_dir = Pkg.PlatformEngines.get_server_dir("$(pkg_server)/", pkg_server)
     token_file = joinpath(server_dir, "auth.toml")
+    @info "Token file: $(token_file)"
+    @info "Does the token file already exist?" isfile(token_file)
     mkpath(dirname(token_file))
     open(token_file, "w") do io
         println(io, juliahub_token_toml)
         println(io)
     end
+    @info "Does the token file already exist?" isfile(token_file)
+    @info isfile(token_file)
     check_auth_toml_file(token_file)
     return nothing
 end
