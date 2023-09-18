@@ -6,7 +6,9 @@ include(joinpath(@__DIR__, "check_pkg_server.jl"))
 
 function get_juliahub_token_toml()
     juliahub_token_encoded = ENV["JULIAHUB_TOKEN_ENCODED"] |> strip |> String
+    @info "Is the encoded token being picked up properly?" juliahub_token_encoded !== ""
     juliahub_token_toml = String(Base64.base64decode(juliahub_token_encoded))
+    @info "Is the encoded token being decoded properly?" juliahub_token_toml !== ""
     return juliahub_token_toml
 end
 
@@ -26,6 +28,7 @@ function check_auth_toml_file(token_file)
 end
 
 function main_create_auth_toml()
+    @info "Running on Julia $(VERSION)..."
     juliahub_token_toml = get_juliahub_token_toml()
     @info "Is the token getting parsed properly?" juliahub_token_toml !== ""
     pkg_server = Pkg.pkg_server()
